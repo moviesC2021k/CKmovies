@@ -1,2 +1,0 @@
-# CKmovies
-Movies Project 

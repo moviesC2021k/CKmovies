@@ -73,8 +73,8 @@ const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
 
 //REMOVING/ DELETE METHOD
-AJAXRequest(serverURL + `/6`,`DELETE`,{// overriding data in pos 9 here
-}).then(data => console.log(data))
-
-AJAXRequest(serverURL)
-    .then(data => console.log(data))
+// AJAXRequest(serverURL + `/6`,`DELETE`,{// overriding data in pos 9 here
+// }).then(data => console.log(data))
+//
+// AJAXRequest(serverURL)
+//     .then(data => console.log(data))
