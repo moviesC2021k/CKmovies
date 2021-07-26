@@ -4,6 +4,21 @@ $(document).ready(function () {
 
 const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
+    fetch(serverURL)
+        .then(res => res.json())
+        .then(data => console.log(data))
+
+
+    function loading(num) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve("Success");
+            } ,num);
+        })
+    }
+
+    loading(3000).then((message) => console.log(`Loading... ${message}`));
+
 // pulling info from glitch
 // fetch(serverURL).then( response => {
 //     response.json().then( movies => {
@@ -82,10 +97,7 @@ const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 // AJAXRequest(serverURL)
 //     .then(data => console.log(data))
 
-    fetch(serverURL)
-        .then(res => res.json())
-        .then(data => console.log(data))
-
-
-
 });
+
+
+
