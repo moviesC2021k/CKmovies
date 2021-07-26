@@ -135,6 +135,7 @@ $(document).ready(function () {
 //
 //
 // //THIS IS to update an individual record using PUT method (update/ change entire obj)
+
 // AJAXRequest(serverURL + `/9`,`PUT`,{// overriding data in pos 9 here
 //     name: "Polaris",
 //     message: "We are ready for the weekend!!"
@@ -142,6 +143,7 @@ $(document).ready(function () {
 //
 //
 // PATCH METHOD, good to make change in specific area but with out replacing whole obj
+
 // AJAXRequest(serverURL + `/9`,`PATCH`,{// overriding data in pos 9 here
 //     message: "We are really ready for the weekend!!"
 // }).then(data => console.log(data))
