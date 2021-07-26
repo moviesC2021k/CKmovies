@@ -4,20 +4,51 @@ $(document).ready(function () {
 
 const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
-    fetch(serverURL)
+    // function loading(num) {
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             resolve("Success");
+    //         } ,num);
+    //     })
+    // }
+
+    // loading(3000).then((message) => console.log(`Loading... ${message}`));
+
+function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
+    const options = {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+   return fetch(URL, options)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(responseData => responseData)
+       .catch( err => err)
+}
 
+    //    AJAXRequest(serverURL).then()// returns promise, need .then to get to data
+    // ----------- Get ALL MOVIE INFORMATION ------------
+    function getAllMovies() {
+        AJAXRequest(serverURL).then(responseData => console.log(responseData))
 
-    function loading(num) {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve("Success");
-            } ,num);
-        })
     }
+    getAllMovies();
 
-    loading(3000).then((message) => console.log(`Loading... ${message}`));
+    function getOneMovie(id) {
+        AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
+
+    }
+    getOneMovie(2);
+
+    function deleteMovie(id) {
+        AJAXRequest(`${serverURL}/${id}`,'DELETE').then(responseData => console.log(responseData))
+
+    }
+    deleteMovie(7);
+
+    //TODO create add and update
 
 // pulling info from glitch
 // fetch(serverURL).then( response => {
