@@ -1,4 +1,7 @@
 'use strict';
+
+$(document).ready(function () {
+
 const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
 // pulling info from glitch
@@ -73,8 +76,16 @@ const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
 
 //REMOVING/ DELETE METHOD
-AJAXRequest(serverURL + `/6`,`DELETE`,{// overriding data in pos 9 here
-}).then(data => console.log(data))
+// AJAXRequest(serverURL + `/6`,`DELETE`,{// overriding data in pos 9 here
+// }).then(data => console.log(data))
+//
+// AJAXRequest(serverURL)
+//     .then(data => console.log(data))
 
-AJAXRequest(serverURL)
-    .then(data => console.log(data))
+    fetch(serverURL)
+        .then(res => res.json())
+        .then(data => console.log(data))
+
+
+
+});
