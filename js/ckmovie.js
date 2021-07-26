@@ -4,16 +4,6 @@ $(document).ready(function () {
 
     const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
-    // function loading(num) {
-    //     return new Promise((resolve) => {
-    //         setTimeout(() => {
-    //             resolve("Success");
-    //         } ,num);
-    //     })
-    // }
-    //
-    // loading(3000).then((getAllMovies) => console.log(`Loading... ${getAllMovies}`));
-
     function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
         const options = {
             method: method,
@@ -32,10 +22,11 @@ $(document).ready(function () {
 
     // ----------- Get ALL MOVIE INFORMATION ------------
     function getAllMovies() {
-        AJAXRequest(serverURL).then(responseData => console.log(responseData))
+        AJAXRequest(serverURL).then(responseData => console.log(responseData));
+        $('#loading').hide();
     }
-    setTimeout(getAllMovies, 2000);
-    $(`#loading`).click(getAllMovies)
+
+    setTimeout(getAllMovies, 3000);
 
 
     // ----------- Get SINGLE MOVIE INFORMATION ------------
