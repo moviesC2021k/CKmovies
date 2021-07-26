@@ -11,8 +11,8 @@ const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
     //         } ,num);
     //     })
     // }
-
-    // loading(3000).then((message) => console.log(`Loading... ${message}`));
+    //
+    // loading(3000).then((getAllMovies) => console.log(`Loading... ${getAllMovies}`));
 
 function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
     const options = {
@@ -25,7 +25,7 @@ function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
    return fetch(URL, options)
         .then(res => res.json())
         .then(responseData => responseData)
-       .catch( err => err)
+        .catch( err => err)
 }
 
     //    AJAXRequest(serverURL).then()// returns promise, need .then to get to data
@@ -48,7 +48,11 @@ function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
     }
     deleteMovie(7);
 
-    //TODO create add and update
+    function addMovie() {
+        AJAXRequest()
+    }
+
+
 
 // pulling info from glitch
 // fetch(serverURL).then( response => {
