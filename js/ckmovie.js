@@ -140,7 +140,7 @@ $(document).ready(function () {
 //     fetch(serverURL, options)
 //         .then( response => console.log(response) ) /* review was created successfully */
 //         .catch( error => console.error(error) ); /* handle errors */
-//
+
 //
 //
 //     function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
