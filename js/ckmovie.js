@@ -36,7 +36,7 @@ $(document).ready(function () {
                             <h5 className="card-title">${movie.title}</h5>
                             <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
                             <p className="card-text">Plot: ${movie.plot}</p>
-                            <a href="#" data-id="${movie.id}" class="btn btn-primary">Edit Movie</a>
+                            <a href="#" data-id="${movie.id}" class="btn btn-primary editMovie">Edit Movie</a>
                             <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
                         </div>
                 </div>`
@@ -50,15 +50,15 @@ $(document).ready(function () {
 
     setTimeout(getAllMovies, 2000);
 
-    // --------- functionality of the delete button here --------
+    // --------- EventListener functionality buttons here --------
     function addEventListeners() {
-        $(`.deleteButton`).click(function (e) {
+        $(`.deleteButton`).click(function (e) {// delete funciton
             e.preventDefault();
             const movieIdToDelete = $(this).attr(`data-id`);
             console.log(movieIdToDelete);
             deleteMovie(movieIdToDelete);
         })
-        $('#submit-movie').click(function (e) {
+        $('#submit-movie').click(function (e) {// add movie function
             e.preventDefault();
             let movieTitle = $('#title-input').val();
             let moviePlot = $("#plot-input").val();
@@ -66,6 +66,12 @@ $(document).ready(function () {
             let addedMovie = {title: movieTitle, plot: moviePlot, rating: movieRating};
             addMovie(addedMovie);
             console.log(addMovie);
+        })
+        $('.editMovie').click(function (e) {// edit movie info/ rating function
+            e.preventDefault();
+            let movieRating = $("#rating-select").val();
+            updateMovie(addedMovie);
+            console.log(updateMovie);
         })
 
     }
