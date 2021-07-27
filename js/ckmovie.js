@@ -28,16 +28,7 @@ $(document).ready(function () {
             let html = '';
 
             data.forEach(function (movie) {
-                // html = `
-                //   <div class="card text-center" style="width: 18rem;">
-                //   <div class="card-body">
-                //     <img src = ${movie.poster}>
-                //     <h5 class="card-title">${movie.title}</h5>
-                //     <p class="card-text">Rating: ${movie.rating}</p>
-                //     <a href="#" class="btn btn-primary">Edit Movie</a>
-                //     <a href="#" class="btn btn-primary">Delete Movie</a>
-                //   </div>
-                // </div>`;
+
                 html = `
                      <div className="card">
                     <img src=${movie.poster} className="card-img-top" alt="movie poster">
@@ -45,7 +36,7 @@ $(document).ready(function () {
                             <h5 className="card-title">${movie.title}</h5>
                             <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
                             <p className="card-text">Plot: ${movie.plot}</p>
-                            <a href="#" class="btn btn-primary">Edit Movie</a>
+                            <a href="#" data-id="${movie.id}" class="btn btn-primary">Edit Movie</a>
                             <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
                         </div>
                 </div>`
