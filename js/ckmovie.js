@@ -22,10 +22,26 @@ $(document).ready(function () {
 
     // ----------- Get ALL MOVIE INFORMATION ------------
     function getAllMovies() {
-        AJAXRequest(serverURL).then(responseData => console.log(responseData));
+        AJAXRequest(serverURL).then(function (data) {
+            console.log(data)
+            let html = '';
+            data.forEach(function (movie) {
+                html = `
+                  <div class="card text-center" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">${movie.title}</h5>
+                    <p class="card-text">Rating: ${movie.rating}</p>
+                    <a href="#" class="btn btn-primary">Edit Movie</a>
+                    <a href="#" class="btn btn-primary">Delete Movie</a>
+                  </div>
+                </div>`;
+
+                $('#allMovies').append(html);
+            })
+        })
         $('#loading').hide();
     }
-    setTimeout(getAllMovies, 3000);
+    setTimeout(getAllMovies, 2000);
 
 
     // ----------- Get SINGLE MOVIE INFORMATION ------------
@@ -53,9 +69,9 @@ $(document).ready(function () {
     // ----------- UPDATE MOVIE INFORMATION ------------
 
     function updateMovie(id) {
-        AJAXRequest(`${serverURL}`, 'PUT',{id: id, title:'updated movies',year: 2021}).then(responseData => console.log(responseData))
+        AJAXRequest(`${serverURL}/${id}`, 'PUT',{id: id, title:'updated movies',year: 2021}).then(responseData => console.log(responseData))
     }
-    updateMovie(23);
+    updateMovie(10);
 
 
 
