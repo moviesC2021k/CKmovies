@@ -24,26 +24,53 @@ $(document).ready(function () {
     function getAllMovies() {
         AJAXRequest(serverURL).then(function (data) {
             console.log(data)
+            $('#allMovies').empty() //clears out the div gets rid of old and allows for appending of new
             let html = '';
 
             data.forEach(function (movie) {
+                    // html = `
+                    //   <div class="card text-center" style="width: 18rem;">
+                    //   <div class="card-body">
+                    //     <img src = ${movie.poster}>
+                    //     <h5 class="card-title">${movie.title}</h5>
+                    //     <p class="card-text">Rating: ${movie.rating}</p>
+                    //     <a href="#" class="btn btn-primary">Edit Movie</a>
+                    //     <a href="#" class="btn btn-primary">Delete Movie</a>
+                    //   </div>
+                    // </div>`;
                 html = `
-                  <div class="card text-center" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">${movie.title}</h5>
-                    <p class="card-text">Rating: ${movie.rating}</p>
-                    <a href="#" class="btn btn-primary">Edit Movie</a>
-                    <a href="#" class="btn btn-primary">Delete Movie</a>
-                  </div>
-                </div>`;
+                     <div className="card">
+                    <img src=${movie.poster} className="card-img-top" alt="movie poster">
+                        <div className="card-body">
+                            <h5 className="card-title">${movie.title}</h5>
+                            <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
+                            <p className="card-text">Plot: ${movie.plot}</p>
+                            <a href="#" class="btn btn-primary">Edit Movie</a>
+                            <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
+                        </div>
+                </div>`
 
                 $('#allMovies').append(html);
             })
+            addEventListeners()
         })
         $('#loading').hide();
     }
     setTimeout(getAllMovies, 2000);
 
+    // --------- functionality of the delete button here --------
+    function addEventListeners(){
+        $(`.deleteButton`).click(function (e){
+            e.preventDefault();
+           const movieIdToDelete = $(this).attr(`data-id`);
+            console.log(movieIdToDelete);
+            deleteMovie(movieIdToDelete);
+        })
+    }
+    $(`.addMovie`).click(function (e){
+        e.preventDefault();
+        $(this)
+    })
 
     // ----------- Get SINGLE MOVIE INFORMATION ------------
     function getOneMovie(id) {
@@ -54,10 +81,10 @@ $(document).ready(function () {
 
     // ----------- DELETE SINGLE MOVIE INFORMATION ------------
     function deleteMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(responseData => console.log(responseData))
+        AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
     }
     // console.log(`Single movie REMOVAL`);
-    deleteMovie(7);// deletes 21st but there isn't currently a spot
+    deleteMovie(11);// deletes 21st but there isn't currently a spot
 
     // ----------- ADDS SINGLE MOVIE INFORMATION ------------
 
