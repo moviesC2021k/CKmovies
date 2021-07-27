@@ -25,6 +25,7 @@ $(document).ready(function () {
         AJAXRequest(serverURL).then(function (data) {
             console.log(data)
             let html = '';
+
             data.forEach(function (movie) {
                 html = `
                   <div class="card text-center" style="width: 18rem;">
@@ -72,6 +73,8 @@ $(document).ready(function () {
         AJAXRequest(`${serverURL}/${id}`, 'PUT',{id: id, title:'updated movies',year: 2021}).then(responseData => console.log(responseData))
     }
     updateMovie(10);
+
+
 
 
 
