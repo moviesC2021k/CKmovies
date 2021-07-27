@@ -25,7 +25,6 @@ $(document).ready(function () {
         AJAXRequest(serverURL).then(responseData => console.log(responseData));
         $('#loading').hide();
     }
-
     setTimeout(getAllMovies, 3000);
 
 
@@ -33,21 +32,20 @@ $(document).ready(function () {
     function getOneMovie(id) {
         AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
     }
-
     console.log(`Single movie REQUEST`);
-    getOneMovie(2);
+    getOneMovie(3);
 
     // ----------- DELETE SINGLE MOVIE INFORMATION ------------
     function deleteMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`,'DELETE').then(responseData => console.log(responseData))
+        AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(responseData => console.log(responseData))
     }
     // console.log(`Single movie REMOVAL`);
-    deleteMovie(21);// deletes 21st but there isn't currently a spot
+    deleteMovie(7);// deletes 21st but there isn't currently a spot
 
     // ----------- ADDS SINGLE MOVIE INFORMATION ------------
 
     function addMovie(id) {
-        AJAXRequest(`${serverURL}`, 'POST',{id: id,title:"We built this city function ADDED"}).then(responseData => console.log(responseData))
+        AJAXRequest(`${serverURL}`, 'POST',{id: id,title:"We built this city function ADDED part 2"}).then(responseData => console.log(responseData))
     }
     // console.log(`Single movie ADDITION`)
     addMovie(7);
