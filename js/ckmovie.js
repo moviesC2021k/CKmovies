@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     const serverURL = `https://alluring-nutritious-calendula.glitch.me/movies`
 
-    function AJAXRequest(URL, method = `GET`, data){// sim to ajax request
+    function AJAXRequest(URL, method = `GET`, data) {// sim to ajax request
         const options = {
             method: method,
             headers: {
@@ -15,7 +15,7 @@ $(document).ready(function () {
         return fetch(URL, options)
             .then(res => res.json())
             .then(responseData => responseData)
-            .catch( err => err)
+            .catch(err => err)
     }
 
     //    AJAXRequest(serverURL).then()// returns promise, need .then to get to data
@@ -28,16 +28,16 @@ $(document).ready(function () {
             let html = '';
 
             data.forEach(function (movie) {
-                    // html = `
-                    //   <div class="card text-center" style="width: 18rem;">
-                    //   <div class="card-body">
-                    //     <img src = ${movie.poster}>
-                    //     <h5 class="card-title">${movie.title}</h5>
-                    //     <p class="card-text">Rating: ${movie.rating}</p>
-                    //     <a href="#" class="btn btn-primary">Edit Movie</a>
-                    //     <a href="#" class="btn btn-primary">Delete Movie</a>
-                    //   </div>
-                    // </div>`;
+                // html = `
+                //   <div class="card text-center" style="width: 18rem;">
+                //   <div class="card-body">
+                //     <img src = ${movie.poster}>
+                //     <h5 class="card-title">${movie.title}</h5>
+                //     <p class="card-text">Rating: ${movie.rating}</p>
+                //     <a href="#" class="btn btn-primary">Edit Movie</a>
+                //     <a href="#" class="btn btn-primary">Delete Movie</a>
+                //   </div>
+                // </div>`;
                 html = `
                      <div className="card">
                     <img src=${movie.poster} className="card-img-top" alt="movie poster">
@@ -56,53 +56,66 @@ $(document).ready(function () {
         })
         $('#loading').hide();
     }
+
     setTimeout(getAllMovies, 2000);
 
     // --------- functionality of the delete button here --------
-    function addEventListeners(){
-        $(`.deleteButton`).click(function (e){
+    function addEventListeners() {
+        $(`.deleteButton`).click(function (e) {
             e.preventDefault();
-           const movieIdToDelete = $(this).attr(`data-id`);
+            const movieIdToDelete = $(this).attr(`data-id`);
             console.log(movieIdToDelete);
             deleteMovie(movieIdToDelete);
         })
+        $('#submit-movie').click(function (e) {
+            e.preventDefault();
+            let movieTitle = $('#title-input').val();
+            let moviePlot = $("#plot-input").val();
+            let movieRating = $("#rating-select").val();
+            let addedMovie = {title: movieTitle, plot: moviePlot, rating: movieRating};
+            addMovie(addedMovie);
+            console.log(addMovie);
+        })
+
     }
-    $(`.addMovie`).click(function (e){
-        e.preventDefault();
-        $(this)
-    })
-
-    // ----------- Get SINGLE MOVIE INFORMATION ------------
-    function getOneMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
-    }
-    console.log(`Single movie REQUEST`);
-    getOneMovie(3);
-
-    // ----------- DELETE SINGLE MOVIE INFORMATION ------------
-    function deleteMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
-    }
-    // console.log(`Single movie REMOVAL`);
-    deleteMovie(11);// deletes 21st but there isn't currently a spot
-
-    // ----------- ADDS SINGLE MOVIE INFORMATION ------------
-
-    function addMovie(id) {
-        AJAXRequest(`${serverURL}`, 'POST',{id: id,title:"We built this city function ADDED part 2"}).then(responseData => console.log(responseData))
-    }
-    // console.log(`Single movie ADDITION`)
-    addMovie(7);
-
-    // ----------- UPDATE MOVIE INFORMATION ------------
-
-    function updateMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`, 'PUT',{id: id, title:'updated movies',year: 2021}).then(responseData => console.log(responseData))
-    }
-    updateMovie(10);
 
 
 
+// ----------- Get SINGLE MOVIE INFORMATION ------------
+function getOneMovie(id) {
+    AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
+}
+
+console.log(`Single movie REQUEST`);
+getOneMovie(3);
+
+// ----------- DELETE SINGLE MOVIE INFORMATION ------------
+function deleteMovie(id) {
+    AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
+}
+
+
+// ----------- ADDS SINGLE MOVIE INFORMATION ------------
+
+
+function addMovie(addedMovie) {
+    AJAXRequest(serverURL, 'POST', addedMovie).then(getAllMovies)
+}
+
+// addMovie();
+
+
+// ----------- UPDATE MOVIE INFORMATION ------------
+
+function updateMovie(id) {
+    AJAXRequest(`${serverURL}/${id}`, 'PUT', {
+        id: id,
+        title: 'updated movies',
+        year: 2021
+    }).then(responseData => console.log(responseData))
+}
+
+// updateMovie(10);
 
 
 //
@@ -114,7 +127,7 @@ $(document).ready(function () {
 //     })
 // })
 
-    // ------ GET REQUEST -----
+// ------ GET REQUEST -----
 // simple get request (shows all movies in data base)
 //     fetch(serverURL)
 //         .then(res => res.json())
@@ -122,7 +135,7 @@ $(document).ready(function () {
 //
 
 
-    // ------ ADD REQUEST -----
+// ------ ADD REQUEST -----
 
 // //post request(add/ send to database)
 //     const objToSend = {//object sending to server
