@@ -30,22 +30,22 @@ $(document).ready(function () {
             data.forEach(function (movie) {
 
                 html = `
-                     <div className="card">
-                    <img src=${movie.poster} className="card-img-top" alt="movie poster">
-                        <div className="card-body">
-                            <h5 className="card-title">${movie.title}</h5>
-                            <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
-                            <p className="card-text">Plot: ${movie.plot}</p>
-                            <a href="#" data-id="${movie.id}" class="btn btn-primary editMovie">Edit Movie</a>
-                            <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
-                        </div>
-                </div>`
+                     <div className="card" class="col my-col"><!-- trying to dynamically add in columns to place each card next to each other-->
+                           <img src=${movie.poster} className="card-img-top" alt="movie poster">
+                            <div className="card-body">
+                                <h5 className="card-title">${movie.title}</h5>
+                                <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
+                                <p className="card-text">Plot: ${movie.plot}</p>
+                                <a href="#" data-id="${movie.id}" class="btn btn-primary editMovie">Edit Movie</a>
+                                <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
+                            </div>
+                    </div>`
 
                 $('#allMovies').append(html);
             })
             addEventListeners()
         })
-        $('#loading').hide();
+        $('.loading').hide();
     }
 
     setTimeout(getAllMovies, 2000);
@@ -69,48 +69,56 @@ $(document).ready(function () {
         })
         $('.editMovie').click(function (e) {// edit movie info/ rating function
             e.preventDefault();
-            let movieRating = $("#rating-select").val();
-            updateMovie(addedMovie);
-            console.log(updateMovie);
+            const movieToBeEdited = $(this).attr(`data-id`);
+            console.log(movieToBeEdited);
+            AJAXRequest(serverURL).then(function (data) {
+                $(movieToBeEdited).click(function () {
+                    console.log(`here is what we want to edit the film`);
+                })
+                // let movieRating = $("#rating-select").val();
+                updateMovie(movieToBeEdited); //old version updateMovie(addedMovie)
+                console.log(updateMovie);
+            })// NOTE THIS IS DOING SOMETHING, BUT DON'T UNDERSTAND WHAT AT THIS TIME
         })
+        $('.loading').hide();
 
     }
 
 
 
 // ----------- Get SINGLE MOVIE INFORMATION ------------
-function getOneMovie(id) {
-    AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
-}
+    function getOneMovie(id) {
+        AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
+    }
 
-console.log(`Single movie REQUEST`);
-getOneMovie(3);
+    console.log(`Single movie REQUEST`);
+    getOneMovie(3);
 
 // ----------- DELETE SINGLE MOVIE INFORMATION ------------
-function deleteMovie(id) {
-    AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
-}
+    function deleteMovie(id) {
+        AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
+    }
 
 
 // ----------- ADDS SINGLE MOVIE INFORMATION ------------
 
 
-function addMovie(addedMovie) {
-    AJAXRequest(serverURL, 'POST', addedMovie).then(getAllMovies)
-}
+    function addMovie(addedMovie) {
+        AJAXRequest(serverURL, 'POST', addedMovie).then(getAllMovies)
+    }
 
 // addMovie();
 
 
 // ----------- UPDATE MOVIE INFORMATION ------------
 
-function updateMovie(id) {
-    AJAXRequest(`${serverURL}/${id}`, 'PUT', {
-        id: id,
-        title: 'updated movies',
-        year: 2021
-    }).then(responseData => console.log(responseData))
-}
+    function updateMovie(id) {
+        AJAXRequest(`${serverURL}/${id}`, 'PUT', {
+            id: id,
+            title: 'updated movies',
+            year: 2021
+        }).then(getAllMovies)// old: responseData => console.log(responseData)
+    }
 
 // updateMovie(10);
 
