@@ -36,7 +36,7 @@ $(document).ready(function () {
                                 <h5 className="card-title">${movie.title}</h5>
                                 <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
                                 <p className="card-text">Plot: ${movie.plot}</p>
-                                <a href="#" data-id="${movie.id}" class="btn btn-primary editMovie">Edit Movie</a>
+                                <a href="#" data-id="${movie.id}" class="btn btn-primary editButton">Edit Movie</a>
                                 <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
                             </div>
                     </div>`
@@ -67,20 +67,24 @@ $(document).ready(function () {
             addMovie(addedMovie);
             console.log(addMovie);
         })
-        $('.editMovie').click(function (e) {// edit movie info/ rating function
+        $('.editButton').click(function (e) {// edit movie info/ rating function
             e.preventDefault();
-            const movieToBeEdited = $(this).attr(`data-id`);
-            console.log(movieToBeEdited);
-            AJAXRequest(serverURL).then(function (data) {
-                $(movieToBeEdited).click(function () {
-                    console.log(`here is what we want to edit the film`);
-                })
-                // let movieRating = $("#rating-select").val();
-                updateMovie(movieToBeEdited); //old version updateMovie(addedMovie)
-                console.log(updateMovie);
-            })// NOTE THIS IS DOING SOMETHING, BUT DON'T UNDERSTAND WHAT AT THIS TIME
-        })
-        $('.loading').hide();
+            const movieId = $(this).attr(`data-id`);
+            console.log(movieId)
+
+            $('#editMovieModal').modal('show');
+            $('#submit-edit-changes').click(function () {
+                let updatedMovieTitle = $('#updated-movie-title').val();
+                console.log(updatedMovieTitle)
+                let updatedMoviePlot = $('#updated-movie-plot').val();
+                let updatedMovieRating = $('#updated-movie-rating').val();
+                let updatedMovie = {title: updatedMovieTitle, plot: updatedMoviePlot, rating: updatedMovieRating}
+                editMovie(updatedMovie);
+                $('#editMovieModal').modal('hide');
+            });
+
+
+            })
 
     }
 
@@ -112,12 +116,8 @@ $(document).ready(function () {
 
 // ----------- UPDATE MOVIE INFORMATION ------------
 
-    function updateMovie(id) {
-        AJAXRequest(`${serverURL}/${id}`, 'PUT', {
-            id: id,
-            title: 'updated movies',
-            year: 2021
-        }).then(getAllMovies)// old: responseData => console.log(responseData)
+    function editMovie(updatedMovie) {
+        AJAXRequest(serverURL+ `/id`,`PUT`, updatedMovie).then(getAllMovies)// old: responseData => console.log(responseData)
     }
 
 // updateMovie(10);

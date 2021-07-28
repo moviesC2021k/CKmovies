@@ -19,23 +19,74 @@
     <img src="img/loading.gif" id="loading">
   </div>
 
-  <div class="card-group">
-  <div id="allMovies"></div>
-  </div>
-
+<!--  Submit movie form -->
   <form class="submitMovie">
       <input id="title-input" type="search" placeholder="Movie Title">
       <input id="plot-input" type="search" placeholder="Plot">
       <select class="custom-select" id="rating-select">
-                            <option selected>Rating</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                            <option value="4">Four</option>
-                            <option value="5">Five</option>
-                        </select>
+          <option selected>Rating</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="4">Four</option>
+          <option value="5">Five</option>
+      </select>
       <button id="submit-movie" type="submit">Submit</button>
   </form>
+
+<!--  Edit movie form -->
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editMovieModal">
+      Edit Movie
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editMovieModal" tabindex="-1" role="dialog" aria-labelledby="editMovieLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editMovieLabel">Edit Movie</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form>
+                      <div class="form-group">
+                          <label for="updated-movie-title">Movie Title</label>
+                          <input type="text" class="form-control autocomplete" id="updated-movie-title" placeholder="Movie Title">
+                      </div>
+                      <div class="form-group">
+                          <label for="updated-movie-plot">Plot</label>
+                          <input type="text" class="form-control autocomplete" id="updated-movie-plot" placeholder="Movie Plot">
+                      </div>
+                      <div class="form-group">
+                          <label for="updated-movie-rating">Rating</label>
+                      <select class="custom-select" id="updated-movie-rating">
+                          <option selected>Rating</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                          <option value="4">Four</option>
+                          <option value="5">Five</option>
+                      </select>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button id="submit-edit-changes" class="btn btn-primary">Submit Changes</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <div class="card-group">
+  <div id="allMovies"></div>
+  </div>
+
+
 <!--  <form>-->
 <!--      <div class="row my-row">-->
 <!--          <div class="col my-col">-->
