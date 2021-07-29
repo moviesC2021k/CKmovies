@@ -58,6 +58,7 @@ $(document).ready(function () {
             console.log(movieIdToDelete);
             deleteMovie(movieIdToDelete);
         })
+
         $('#submit-movie').click(function (e) {// add movie function
             e.preventDefault();
             let movieTitle = $('#title-input').val();
@@ -67,6 +68,7 @@ $(document).ready(function () {
             addMovie(addedMovie);
             console.log(addMovie);
         })
+
         $('.editButton').click(function (e) {// edit movie info/ rating function
             e.preventDefault();
             const movieId = $(this).attr(`data-id`);
