@@ -45,7 +45,7 @@ $(document).ready(function () {
             })
             addEventListeners()
         })
-        $('.loading').hide();
+        $('#loading').hide();
     }
 
     setTimeout(getAllMovies, 2000);
