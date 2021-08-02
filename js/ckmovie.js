@@ -48,16 +48,17 @@ $(document).ready(function () {
         $('#loading').hide();
     }
 
-    setTimeout(getAllMovies, 2000);
+    setTimeout(getAllMovies, 1000);
 
     // --------- EventListener functionality buttons here --------
     function addEventListeners() {
-        $(`.deleteButton`).click(function (e) {// delete funciton
+        $(`.deleteButton`).click(function (e) {// delete function
             e.preventDefault();
             const movieIdToDelete = $(this).attr(`data-id`);
-            console.log(movieIdToDelete);
+            // console.log(movieIdToDelete);
+            if (confirm('Are you sure you want to delete this movie?'))
             deleteMovie(movieIdToDelete);
-        })
+        });
 
         $('#submit-movie').click(function (e) {// add movie function
             e.preventDefault();
@@ -66,37 +67,30 @@ $(document).ready(function () {
             let movieRating = $("#rating-select").val();
             let addedMovie = {title: movieTitle, plot: moviePlot, rating: movieRating};
             addMovie(addedMovie);
-            console.log(addMovie);
-        })
+            // console.log(addMovie);
+        });
 
         $('.editButton').click(function (e) {// edit movie info/ rating function
             e.preventDefault();
             const movieId = $(this).attr(`data-id`);
-            console.log(movieId)
 
             $('#editMovieModal').modal('show');
             $('#submit-edit-changes').click(function () {
-                let updatedMovieTitle = $('#updated-movie-title').val();
-                console.log(updatedMovieTitle)
-                let updatedMoviePlot = $('#updated-movie-plot').val();
-                let updatedMovieRating = $('#updated-movie-rating').val();
-                let updatedMovie = {title: updatedMovieTitle, plot: updatedMoviePlot, rating: updatedMovieRating}
-                editMovie(updatedMovie);
+                editMovie(movieId)
                 $('#editMovieModal').modal('hide');
             });
-
-            })
-
+            $('#close-edit').click(function () {
+                $('#editMovieModal').modal('hide');
+            });
+        });
     }
-
 
 
 // ----------- Get SINGLE MOVIE INFORMATION ------------
     function getOneMovie(id) {
         AJAXRequest(`${serverURL}/${id}`).then(responseData => console.log(responseData))
     }
-
-    console.log(`Single movie REQUEST`);
+    // console.log(`Single movie REQUEST`);
     getOneMovie(3);
 
 // ----------- DELETE SINGLE MOVIE INFORMATION ------------
@@ -104,24 +98,23 @@ $(document).ready(function () {
         AJAXRequest(`${serverURL}/${id}`, 'DELETE').then(getAllMovies)
     }
 
-
 // ----------- ADDS SINGLE MOVIE INFORMATION ------------
-
-
     function addMovie(addedMovie) {
         AJAXRequest(serverURL, 'POST', addedMovie).then(getAllMovies)
     }
 
-// addMovie();
-
-
 // ----------- UPDATE MOVIE INFORMATION ------------
-
-    function editMovie(updatedMovie) {
-        AJAXRequest(serverURL+ `/id`,`PUT`, updatedMovie).then(getAllMovies)// old: responseData => console.log(responseData)
+    function editMovie(movieId) {
+        let updatedMovieTitle = $('#updated-movie-title').val();
+        let updatedMoviePlot = $('#updated-movie-plot').val();
+        let updatedMovieRating = $('#updated-movie-rating').val();
+        AJAXRequest(`${serverURL}/${movieId}`, `PUT`, {
+            title: updatedMovieTitle,
+            plot: updatedMoviePlot,
+            rating: updatedMovieRating
+        }).then(getAllMovies)
     }
 
-// updateMovie(10);
 
 
 //
