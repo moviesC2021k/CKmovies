@@ -36,9 +36,11 @@ $(document).ready(function () {
                                 <h5 className="card-title">${movie.title}</h5>
                                 <p className="card-text">Rating: ${movie.rating}</p><!-- template string explicit {}-->
                                 <p className="card-text">Plot: ${movie.plot}</p>
-                                <a href="#" data-id="${movie.id}" class="btn btn-primary editButton">Edit Movie</a>
-                                <a href="#" data-id="${movie.id}" class="btn btn-primary deleteButton">Delete Movie</a>
+                                
+                                <a href="#" data-id="${movie.id}" class="btn btn-danger editButton">Edit Movie</a>
+                                <a href="#" data-id="${movie.id}" class="btn btn-danger deleteButton" style="background-color: darkred">Delete Movie</a>
                             </div>
+                            
                     </div>`
 
                 $('#allMovies').append(html);

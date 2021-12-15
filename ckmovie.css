@@ -16,9 +16,14 @@
 /*    height: 50px;*/
 /*}*/
 
-body {
-    background-color: darkgoldenrod;
+#allMovies {
+    display: flex;
+    background-color: black;
+    align-content: center;
+    color: white;
 }
+
+
 
 
 
